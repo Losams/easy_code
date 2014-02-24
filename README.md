@@ -38,16 +38,15 @@ Easy code give you one function to generate shortcode, add it to tinyMCE, link i
 ### $callback ###
 
 
-function function\_name($atts, $content = null ) {   
-    extract(shortcode\_atts(array(
-        "exemple\_field" => 'default value on my var',
-        "exemple\_field2" => 'default value on my var'
-        ), $atts));
-
-    $html = $exemple\_field;
-    $html .= $exemple\_field2;
-
-    return $html;
-}
+    function function_name($atts, $content = null ) {   
+        extract(shortcode_atts(array(
+            "exemple_field" => 'default value on my var',
+            "exemple_field2" => 'default value on my var'
+            ), $atts));
+            
+        $html = $exemple_field;
+        $html .= $exemple_field2;
+        return $html;
+    }
 
 Remember to use do_shortcode($content) is you have multi-level imbrication.
