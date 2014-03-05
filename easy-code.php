@@ -5,40 +5,34 @@ Description: Manager to create and use shortcodes easily
 Version: 1.0.0
 */
 
-function easycode_register_js() {
-	// wp_register_script( 'tinymceEasyCode', plugins_url('/js/tinymce.lchshortcodes.js', __FILE__));
-	// wp_enqueue_script('tinymceEasyCode');
-}
-add_action( 'admin_init','easycode_register_js');
-
 /* Init TinyMCE Button */
-if ( ! function_exists('add_lch_rich_plugin')) :
-    function add_lch_rich_plugin( $plugin_array ) {
-        $plugin_array['lchShortcodes'] = plugins_url('easy-code/js/tinymce.lchshortcodes.js');
+if ( ! function_exists('add_easycode_rich_plugin')) :
+    function add_easycode_rich_plugin( $plugin_array ) {
+        $plugin_array['easycodeShortcodes'] = plugins_url('easy-code/js/tinymce.easycodeshortcodes.js');
         return $plugin_array;
     }
 endif; 
 
-if ( ! function_exists('register_lch_rich_button')) :
-    function register_lch_rich_button( $buttons ) {
+if ( ! function_exists('register_easycode_rich_button')) :
+    function register_easycode_rich_button( $buttons ) {
         array_push( $buttons, "|", 'easy_code_button' );
         return $buttons;
     }
 endif; 
 
-if (function_exists('add_lch_rich_plugin') && function_exists('register_lch_rich_button')) :
-    if (!function_exists('lch_shortcode_tinymce')) {
-        function lch_shortcode_tinymce() {
+if (function_exists('add_easycode_rich_plugin') && function_exists('register_easycode_rich_button')) :
+    if (!function_exists('easycode_shortcode_tinymce')) {
+        function easycode_shortcode_tinymce() {
             if ( ! current_user_can('edit_posts') && ! current_user_can('edit_pages') )
                 return;
 
             if ( get_user_option('rich_editing') == 'true' )
             {
-                add_filter( 'mce_external_plugins', 'add_lch_rich_plugin' );
-                add_filter( 'mce_buttons', 'register_lch_rich_button' );
+                add_filter( 'mce_external_plugins', 'add_easycode_rich_plugin' );
+                add_filter( 'mce_buttons', 'register_easycode_rich_button' );
             }
         }
-        add_action('init', 'lch_shortcode_tinymce');
+        add_action('init', 'easycode_shortcode_tinymce');
     }
 endif;
 
