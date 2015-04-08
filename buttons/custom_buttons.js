@@ -1,17 +1,7 @@
 ( function() {
 	"use strict";
 
-	var ICONS;
-
-	var setIconShortcode = function(id) {
-		return '[wc_fa icon="' + id + '" margin_left="" margin_right=""][/wc_fa]';
-	}
-
-	var icon = function(id) {
-		return '<i class="fa fa-' + id + '"></i>';
-	}
-
-	var wcShortcodeFA = function( editor, url ) {
+	var easy_custom_styles = function( editor, url ) {
 		editor.addButton('custom_styles', function() {
 			var values = [];
 			
@@ -55,9 +45,6 @@
 								}
 							});	
 						}
-						
-
-						// editor.insertContent(setIconShortcode(e.control.settings.value));
 					}		
 					return false;
 				},
@@ -65,6 +52,6 @@
 			};
 		});
 	};
-	tinymce.PluginManager.add( 'easy_custom_styles', wcShortcodeFA );
+	tinymce.PluginManager.add( 'easy_custom_styles', easy_custom_styles );
 
 } )();
