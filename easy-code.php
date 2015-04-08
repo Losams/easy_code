@@ -37,6 +37,9 @@ class Easy_Shortcodes {
         foreach ($forges as $forge) {
             $list_shortcodes[] = $forge->get_title();
 
+            // Check if some treatment is necessary for filepicker fields
+            $forge->check_fields_files();
+
             $res[$forge->get_title()] = array(
                     'name'  => $forge->get_name(),
                     'is_immediat' => $forge->is_immediat(),
@@ -45,6 +48,10 @@ class Easy_Shortcodes {
                 );
         }
         $res = json_encode($res);
+
+        // Delete string for function() onclick on filepicker
+        $res = str_replace(array('"__', '__"'), '', $res);
+
         $list = json_encode($list_shortcodes);
 
         ?>
@@ -86,46 +93,3 @@ require_once( __DIR__.'/class/easy-code.class.php' );
 
 // Instanciates plugin
 $easy_shortcodes = new Easy_Shortcodes();
-
-
-
-function avis($atts, $content = null ) {
-   
-     $html = "---------------------<br>";
-     $html .= $content;
-    $html .= "--------------------<br>";
-
-    return $html;
-}
-
-function avis_popup($atts, $content = null ) {
-    
-     extract(shortcode_atts(array(
-                    "exemple_field" => '640',
-                    "exemple_field2" => '480',
-                    "exemple_field3" => ''
-                    ), $atts));
-
-     $html = '<br>'.$exemple_field.'<br>';
-     $html .= $exemple_field2.'<br>';
-     $html .= $exemple_field3.'<br>';
-
-    return $html;
-}
-
-create_easy_code('avis_expert', "avis d'expert", null, 'avis');
-
-$fields_lol[] = array(
-        "type" => 'textbox',
-        "name" => 'text',
-        "label" => 'Texte',
-        "value" => ''
-    );
-
-$fields_lol[] = array(
-        "type" => 'textbox',
-        "name" => 'textlol',
-        "label" => 'Texte second',
-        "value" => ''
-    );
-create_easy_code('azerty', 'fdkdflf fdazerty', $fields_lol, 'avis');
